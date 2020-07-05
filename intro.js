@@ -1,5 +1,4 @@
 /*
-
 Let's build a (very simple) compiler!
 
 A compiler is just a normal program that takes a string and outputs a different string.
@@ -24,9 +23,10 @@ Compilers can get *very* complex, but at their core they usually have 4 basic st
   3. Optimization - modify the data structure so it will generate efficient output
   4. Translation - use the data structure to construct output code
 
-For this demo, we'll be implementing a compiler for a *very* simple langauge that can only express addition
-It will take an input string that is a math equation which is valid in JS, and output a line of Clojure code
-I chose Clojure as the output because it's my favorite langauge.
+For this demo, we'll be implementing a compiler for a *very* simple langauge that can only express addition.
+It will take an input string that consists of numbers and '+', and output a line of Lisp code.
+Each the integers and pluses must be separated by a single space.
+I chose Lisp as the output because it's my favorite langauge.
 But also represents math a bit differently, so there'll actually be a difference between input and output
 
 Here is a basic test that should pass once we're done:
