@@ -7,15 +7,15 @@ We'll just represent the tree as nested arrays where the first element is a node
 Each node of the tree will represent a function (i.e. '+') with branches as arguments.
 Each leaf will be a number.
 
-1 + 1 -> + or ['PLUS', 1, 1]
+1 + 2 -> + or ['PLUS', NUMBER1, NUMBER1]
         / \
-       1  1
+       1  2
 
-1 + 1 + 1 -> + or ['PLUS', 1, ['PLUS', 1, 1]]
+1 + 2 + 3 -> + or ['PLUS', NUMBER1, ['PLUS', NUMBER2, NUMBER3]]
             / \
            1  +
              / \
-            1  1
+            2  3
 
 We caught syntax errors in the lexing step, so we can make a number of assumptions about the input array.
 We can assume the 1st index is just a number, 2nd is PLUS, and the rest is a number or code that follows these rules

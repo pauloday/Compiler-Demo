@@ -1,49 +1,43 @@
 /*
 Break the input string up into meaningful words
-Our language only understands integer addition, so the words are either a number or '+'.
-First, we'll define our words:
+Our language only understands integer addition, so the words represent either a number or '+'.
+These words will be used to do logic on the output throughout the rest of the compiler:
+
+1 + 2 -> ['NUMBER1', 'PLUS', 'NUMBER2]
+
+It may seem like overkill to not just use '+' and numbers, and for a langauge this simple it is.
+But doing it this way means it's a lot easier to modify the syntax of our language.
+And it'll make the compiler code clearer, especially if we wanted to start adding more features to the language.
+First, we'll define our words. Our output will be an array consisting of these two values:
 */
 const PLUS = 'PLUS';
-const NUMBER = (n) => n; // this is redundant, but it's included for consistency
+const NUMBER = (n) => `NUMBER${n}`;
 /*
-Our output will be an array consisting of these two values.
-But first, some helper functions:
+And some helper functions for clairity and to make changing the syntax easier:
 */
-const isNumber = (n) => !isNaN(Number(n)); // return true if input is a number
-const isNotSpace = (str) => str.match(/^\s/) === null; // return true if input is not whitespace
+const isPlus = (input) => input === '+';
+const isNumber = (input) => !isNaN(Number(input));
+const fromNUMBER = (input) => input.slice(6); // this is used by the translator
 /*
-We'll iterate over the string and do some logic on each char to push the corresponding word into our output.
-This is overkill for such a simple language, but this structure more closely matches how a real compiler works
-We'd have to make the lexer this complex as soon as we started adding pretty much any basic syntax features
+We'll split the string on ' ' and go through it, translating each part into words.
+Along the way we'll check for syntax errors.
 */
 function lexer(inputString) {
   const output = [];
-  const unfilteredInputArray = inputString.split('');
-  const inputArray = unfilteredInputArray.filter(isNotSpace);
-  for (let index = 0; index < inputArray.length; index++) {
-    const char = inputArray[index];
-    if (char === '+') {
+  const inputArray = inputString.split(' ');
+  inputArray.forEach((inputWord, index) => {
+    if (isPlus(inputWord)) {
       // we need to make sure this plus is in a valid place
-      // syntax errors are usually caught in this step
       if (!isNumber(inputArray[index - 1]) || !isNumber(inputArray[index + 1])) {
-        // this is not a great error message, but a better one is beyond the scope of this demo
+        // this is an awful error message, but a better one is beyond the scope of this demo
         throw new Error('syntax error');
       }
       output.push(PLUS);
-    } else if (isNumber(char)) {
-      // if it is a number, we need deal with it maybe being a multidigit one
-      const digits = [];
-      while (isNumber(inputArray[index]) && index < inputArray.length) {
-        digits.push(inputArray[index]);
-        index += 1;
-      }
-      // the while loop exits when the index is no longer on a number
-      // so we have to reset it to avoid skipping that non-number character in the for loop
-      index -= 1; 
-      output.push(NUMBER(digits.join('')));
+    } else if (isNumber(inputWord)) {
+      output.push(NUMBER(inputWord));
     }
-  }
+  });
   return output;
 }
 
-module.exports = { PLUS, lexer };
+module.exports = { PLUS, fromNUMBER, lexer };
