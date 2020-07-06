@@ -16,12 +16,15 @@ A example of a REPL is the Javascript console in your web browser.
 Javascript is designed to be interpreted by web browsers rather than compiled, 
 We're building a compiler, but the basic steps are the same for interpreters - they just happen at a different speed.
 
+## Steps
 
 Compilers can get *very* complex, but at their core they usually have 4 basic steps:
   1. Lexing - break the input code into meaningful chunks (or "words")
   2. Parsing - convert the words into a data structure
   3. Optimization - modify the data structure so it will generate efficient output
   4. Translation - use the data structure to construct output code
+
+## Demo Language
 
 For this demo, we'll be implementing a compiler for a *very* simple langauge that can only express addition.
 It will take an input string that consists of numbers and '+', and output a line of Lisp code.
