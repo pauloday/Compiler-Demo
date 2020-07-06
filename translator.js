@@ -12,7 +12,9 @@ We got rid of nested arrays in the optimization step, so assume the input is jus
 We'll go through the array and translate the words, then join the resulting array into a string with ' '.
 Finally we'll wrap the whole thing in parenthesis and we're done!
 */
-const { fromNUMBER, PLUS } = require('./lexer.js');
+const { PLUS } = require('./lexer.js');
+
+const fromNUMBER = (input) => input.slice(6); // this is used by the translator
 
 function translator(array) {
   const translatedArray = array.map((element) => {

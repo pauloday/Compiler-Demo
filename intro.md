@@ -31,6 +31,3 @@ But also represents math a bit differently, so there'll actually be a difference
 
 Here is a basic test that should pass once we're done:
 */
-const cljComp = require('./cljComp.js');
-
-console.log('compiler is working:', cljComp('1 + 20 + 300') === '(+ 1 20 300)');

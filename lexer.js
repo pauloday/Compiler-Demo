@@ -17,7 +17,6 @@ And some helper functions for clairity and to make changing the syntax easier:
 */
 const isPlus = (input) => input === '+';
 const isNumber = (input) => !isNaN(Number(input));
-const fromNUMBER = (input) => input.slice(6); // this is used by the translator
 /*
 We'll split the string on ' ' and go through it, translating each part into words.
 Along the way we'll check for syntax errors.
@@ -26,18 +25,27 @@ function lexer(inputString) {
   const output = [];
   const inputArray = inputString.split(' ');
   inputArray.forEach((inputWord, index) => {
+    const nextWord = inputArray[index + 1];
+    const lastWord = inputArray[index - 1];
     if (isPlus(inputWord)) {
       // we need to make sure this plus is in a valid place
-      if (!isNumber(inputArray[index - 1]) || !isNumber(inputArray[index + 1])) {
-        // this is an awful error message, but a better one is beyond the scope of this demo
-        throw new Error('syntax error');
+      if (!isNumber(lastWord) || !isNumber(nextWord)) {
+        throw new Error(`syntax: + not surrounded by numbers in \"${inputString}\"`);
       }
       output.push(PLUS);
     } else if (isNumber(inputWord)) {
+      // make sure the number has pluses surrounding it
+      // if the number is at the start or end, nextWord or lastWord might be undefined
+      // but that's ok, with how isNumber is written, this will still work
+      if (isNumber(lastWord) || isNumber(nextWord)) {
+        throw new Error(`syntax: number not surrounded by pluses in \"${inputString}\"`);
+      }
       output.push(NUMBER(inputWord));
+    } else {
+      throw new Error(`syntax: unrecognized word: \"${inputWord}\" in ${inputString}`)
     }
   });
   return output;
 }
 
-module.exports = { PLUS, fromNUMBER, lexer };
+module.exports = { PLUS, lexer };
