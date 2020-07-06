@@ -42,7 +42,7 @@ function lexer(inputString) {
       }
       output.push(NUMBER(inputWord));
     } else {
-      throw new Error(`syntax: unrecognized word: \"${inputWord}\" in ${inputString}`)
+      throw new Error(`syntax: unrecognized word: \"${inputWord}\" in \"${inputString}\"`)
     }
   });
   return output;

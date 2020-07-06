@@ -8,7 +8,7 @@ function testCompiler(input, expected) {
 function testErrors() {
   const numberError = '1 1';
   const plusError = '+ +';
-  const wordError = 'invalidWord';
+  const wordError = 'invalid words';
   try {
     compile(numberError);
   } catch(err) {
@@ -26,5 +26,5 @@ function testErrors() {
   }
 }
 
-// testCompiler('1 + 20 + 300', '(+ 1 20 300)');
-// testErrors();
+testErrors();
+testCompiler('1 + 20 + 300', '(+ 1 20 300)');
