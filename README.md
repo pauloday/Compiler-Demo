@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Let's build a (very simple) compiler!
 
 A compiler is just a normal program that takes a string and outputs a different string.
@@ -29,7 +28,3 @@ It will take an input string that consists of numbers and '+', and output a line
 Each the integers and pluses must be separated by a single space.
 I chose Lisp as the output because it's my favorite langauge.
 But also represents math a bit differently, so there'll actually be a difference between input and output
-=======
-# compilerDemo
-Super simple compiler demo/presentation. It compiles a langauge that consists of '+' and integers separated by a single space into Lisp. The pluses must have an integer on either side, and all of them must be separated by only a single space. The purpose of this repo is to demonstrate the basic steps of compilation. It's so simple because it's the content for a 15 minute presentation.
->>>>>>> 129e9f0d2ff18a8edaf42439761397cd2cc14932
